@@ -66,6 +66,12 @@ module.exports = {
 
     return res.json({ message: 'Prazo definido com sucesso!', task });
   },
+// atrasadas
+  async overdue(req, res) {
+      const today = new Date();
+      const tasks = await Task.find({ deadline: { $lt: today }, completed: false });
+      return res.json(tasks);
+  },
 // assign
   async assign(req, res) {
     const { userId } = req.body;

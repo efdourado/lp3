@@ -14,7 +14,7 @@ app.use(cors());
 app.use(express.static('public'));
 
 // rotas (28)
-app.use('/users', userRoutes);
-app.use('/tasks', taskRoutes);
+app.use('/user', userRoutes);
+app.use('/task', taskRoutes);
 
 app.listen(3000, () => console.log('servidor iniciado (3000)'));

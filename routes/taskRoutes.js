@@ -4,17 +4,18 @@ const TaskController = require('../controllers/TaskController');
 
 // rotas (tasks)
 router.get('/show', TaskController.show);
-router.get('/:taskId', TaskController.index);
+router.get('/:taskId', TaskController.index); // show (pelo ID)
 router.get('/:taskId/solution', TaskController.solution);
 router.post('/:taskId/done', TaskController.markAsDone);
 router.post('/store', TaskController.store);
-router.delete('/:taskId', TaskController.destroy);
-router.put('/:taskId', TaskController.update);
-
 router.put('/:taskId/deadline', TaskController.setDeadline);
+router.delete('/del/:taskId', TaskController.destroy);
+router.delete('/delCompleted', TaskController.deleteCompleted);
+router.put('/upd/:taskId', TaskController.update);
+
+router.get('/tasks/overdue', TaskController.overdue);
 router.put('/:taskId/assign', TaskController.assign);
 router.post('/:taskId/reopen', TaskController.reopen);
-router.delete('del/completed', TaskController.deleteCompleted);
 
 router.get('/priority/:priority', TaskController.byPriority);
 router.get('/user/:userId', TaskController.byUser);

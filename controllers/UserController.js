@@ -18,7 +18,7 @@ module.exports = {
         let user = await User.findByIdAndUpdate(req.params.id,req.body,{new:true}); 
         return res.json(user);
     },
-// updatePassword
+// updatePw
     async updatePassword(req, res) {
         const { password } = req.body;
         if (!password) return res.status(400).json({ error: 'Senha é obrigatória.' });
