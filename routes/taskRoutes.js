@@ -16,8 +16,6 @@ router.put('/upd/:taskId', TaskController.update);
 router.put('/:taskId/assign', TaskController.assign);
 router.post('/:taskId/reopen', TaskController.reopen);
 router.get('/priority/:priority', TaskController.byPriority);
-router.get('/user/:userId', TaskController.byUser);
-router.get('/filter', TaskController.filter);
 router.post('/assign-multiple', TaskController.assignMultiple);
 router.post('/duplicate/:taskId', TaskController.duplicate);
 

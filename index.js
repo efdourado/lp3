@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.static('public'));
 
-// rotas (28)
+// rotas (25)
 app.use('/user', userRoutes);
 app.use('/task', taskRoutes);
 

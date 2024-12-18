@@ -95,25 +95,6 @@ module.exports = {
     const result = await Task.deleteMany({ completed: true });
     return res.json({ message: 'Tarefas concluídas removidas com sucesso!', count: result.deletedCount });
   },
-  
-
-// show tasks (user)
-  async byUser(req, res) {
-    const { userId } = req.params;
-    const tasks = await Task.find({ assignedTo: userId });
-    return res.json(tasks);
-  },
-// filtrar
-  async filter(req, res) {
-    const { title, status, deadline } = req.query;
-    const query = {};
-    if (title) query.title = { $regex: title, $options: 'i' };
-    if (status) query.status = status;
-    if (deadline) query.deadline = { $lte: new Date(deadline) };
-
-    const tasks = await Task.find(query);
-    return res.json(tasks);
-  },
 // atrasadas
   async overdue(req, res) {
     const tasks = await Task.find({ deadline: { $lt: new Date() }, completed: false });
@@ -133,7 +114,6 @@ module.exports = {
       const task = await Task.findById(req.params.taskId);
       if (!task) return res.status(404).json({ error: 'Tarefa não encontrada.' });
 
-      // Criando uma nova tarefa com um novo ID
       const newTask = new Task({ ...task.toObject(), _id: new mongoose.Types.ObjectId() });
       await newTask.save();
 
