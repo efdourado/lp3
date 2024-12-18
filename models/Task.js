@@ -6,7 +6,12 @@ const TaskSchema = new mongoose.Schema({
   completed: { type: Boolean, default: false },
   solution: String,
   deadline: { type: Date },
-  createdAt: { type: Date, default: Date.now },
+  priority: { 
+    type: String, 
+    enum: ['low', 'medium', 'high'], 
+    default: 'medium' 
+  },
+  createdAt: { type: Date, default: Date.now }
 });
 
 module.exports = mongoose.model('Task', TaskSchema);

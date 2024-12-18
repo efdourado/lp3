@@ -1,4 +1,5 @@
 const Task = require('../models/Task');
+const mongoose = require('mongoose');
 
 module.exports = {
 // show
@@ -45,7 +46,7 @@ module.exports = {
     if (!task) return res.status(404).json({ error: 'Tarefa não encontrada.' });
     return res.json(task);
   },
-
+// filtro (1) 
   async byPriority(req, res) {
     const { priority } = req.params;
     const tasks = await Task.find({ priority });
@@ -118,7 +119,7 @@ module.exports = {
     const tasks = await Task.find({ deadline: { $lt: new Date() }, completed: false });
     return res.json(tasks);
   },
-// atribuições
+// assignm
   async assignMultiple(req, res) {
     const { taskIds, userId } = req.body;
     if (!taskIds || !userId) return res.status(400).json({ error: 'IDs das tarefas e do usuário são obrigatórios.' });
@@ -128,11 +129,18 @@ module.exports = {
   },
 // cópia
   async duplicate(req, res) {
-    const task = await Task.findById(req.params.taskId);
-    if (!task) return res.status(404).json({ error: 'Tarefa não encontrada.' });
+    try {
+      const task = await Task.findById(req.params.taskId);
+      if (!task) return res.status(404).json({ error: 'Tarefa não encontrada.' });
 
-    const newTask = new Task({ ...task.toObject(), _id: mongoose.Types.ObjectId() });
-    await newTask.save();
-    return res.json({ message: 'Tarefa duplicada com sucesso!', newTask });
+      // Criando uma nova tarefa com um novo ID
+      const newTask = new Task({ ...task.toObject(), _id: new mongoose.Types.ObjectId() });
+      await newTask.save();
+
+      return res.json({ message: 'Tarefa duplicada com sucesso!', newTask });
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json({ error: 'Erro ao duplicar tarefa' });
+    }
   },
 };
