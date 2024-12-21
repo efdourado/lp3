@@ -3,6 +3,8 @@ const router = express.Router();
 const TaskController = require('../controllers/TaskController');
 
 // rotas (tasks)
+
+// rotas (Giulianna Ellen e Sofia Teixeira)
 router.get('/show', TaskController.show);
 router.get('/overdue', TaskController.overdue);
 router.get('/:taskId', TaskController.index); // show (pelo ID)
@@ -11,6 +13,8 @@ router.post('/:taskId/done', TaskController.markAsDone);
 router.post('/store', TaskController.store);
 router.put('/:taskId/deadline', TaskController.setDeadline);
 router.delete('/del/:taskId', TaskController.destroy);
+
+// rotas (Eduardo Ferreira e Victória Ferreira)
 router.delete('/delCompleted', TaskController.deleteCompleted);
 router.put('/upd/:taskId', TaskController.update);
 router.put('/:taskId/assign', TaskController.assign);
